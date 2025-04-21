@@ -39,6 +39,14 @@ function Send() {
       if (chatType === 'group') {
         switch (sender) {
           case 'bot':
+            /**
+             * [GUIDE] function
+             * callFunction 메서드는 서버에서 정의한 function을 호출합니다.
+             *
+             * 2번째 인자로 method를 넘겨줍니다.
+             * 서버측에서는 이 method를 통해서 어떤 메서드를 호출할지 결정합니다.
+             * {@link: ../../server/src/server.ts | server.ts 23번 라인}
+             */
             await callFunction(appId, 'sendAsBot', {
               input: {
                 groupId: chatId,
@@ -47,6 +55,12 @@ function Send() {
               },
             })
             break
+          /**
+           * [GUIDE] nativeFunction
+           * callNativeFunction 메서드는 채널에서 제공하는 기본 기능을 호출합니다.
+           * native로 제공하는 기능은 아래 링크에서 자세히 확인할 수 있습니다.
+           * @see https://developers.channel.io/reference/app-function-kr#5-%ED%98%84%EC%9E%AC-%EC%A0%9C%EA%B3%B5%EB%90%98%EB%8A%94-native-functions
+           */
           case 'manager':
             await callNativeFunction('writeGroupMessageAsManager', {
               channelId,
